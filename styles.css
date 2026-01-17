@@ -103,8 +103,11 @@ h1 {
 .exercises {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 30px;
     margin-top: 30px;
+    max-width: 180mm;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .column {
@@ -114,7 +117,7 @@ h1 {
 }
 
 .exercise-item {
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.5;
     padding: 2px 0;
     display: flex;
@@ -122,7 +125,7 @@ h1 {
 }
 
 .exercise-item span:first-child {
-    min-width: 75px;
+    min-width: 85px;
 }
 
 .exercise-item .answer-line {
