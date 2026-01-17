@@ -7,6 +7,69 @@ const CONFIG = {
     TABLE_MAX: 11
 };
 
+// Translations
+const translations = {
+    fr: {
+        'page-title': 'Générateur de Feuilles d\'Exercices',
+        'generate-btn': 'Générer une nouvelle feuille',
+        'print-btn': 'Imprimer',
+        'name-label': 'Prénom',
+        'date-label': 'Date',
+        'title': '60 calculs en 5 minutes',
+        'score-label': 'Mon score'
+    },
+    en: {
+        'page-title': 'Math Worksheet Generator',
+        'generate-btn': 'Generate New Worksheet',
+        'print-btn': 'Print',
+        'name-label': 'Name',
+        'date-label': 'Date',
+        'title': '60 calculations in 5 minutes',
+        'score-label': 'My score'
+    },
+    es: {
+        'page-title': 'Generador de Hojas de Ejercicios',
+        'generate-btn': 'Generar Nueva Hoja',
+        'print-btn': 'Imprimir',
+        'name-label': 'Nombre',
+        'date-label': 'Fecha',
+        'title': '60 cálculos en 5 minutos',
+        'score-label': 'Mi puntuación'
+    }
+};
+
+// Current language
+let currentLang = localStorage.getItem('preferredLanguage') || 'fr';
+
+// Update page text based on language
+function updateLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('preferredLanguage', lang);
+
+    // Update all elements with data-i18n attribute
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+            if (element.tagName === 'TITLE') {
+                element.textContent = translations[lang][key];
+            } else {
+                element.textContent = translations[lang][key];
+            }
+        }
+    });
+
+    // Update HTML lang attribute
+    document.documentElement.lang = lang;
+
+    // Update active language button
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-lang') === lang) {
+            btn.classList.add('active');
+        }
+    });
+}
+
 // Utility: Generate random integer between min and max (inclusive)
 function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -114,8 +177,19 @@ function renderWorksheet() {
 
 // Event listeners
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize language
+    updateLanguage(currentLang);
+
     // Generate initial worksheet on load
     renderWorksheet();
+
+    // Language buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const lang = this.getAttribute('data-lang');
+            updateLanguage(lang);
+        });
+    });
 
     // Generate button
     const generateBtn = document.getElementById('generate-btn');

@@ -3,22 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Générateur de Feuilles d'Exercices</title>
+    <title data-i18n="page-title">Générateur de Feuilles d'Exercices</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="controls no-print">
-        <button id="generate-btn">Générer une nouvelle feuille</button>
-        <button id="print-btn">Imprimer</button>
+        <div class="language-selector">
+            <button id="lang-fr" class="lang-btn active" data-lang="fr">FR</button>
+            <button id="lang-en" class="lang-btn" data-lang="en">EN</button>
+            <button id="lang-es" class="lang-btn" data-lang="es">ES</button>
+        </div>
+        <div class="action-buttons">
+            <button id="generate-btn" data-i18n="generate-btn">Générer une nouvelle feuille</button>
+            <button id="print-btn" data-i18n="print-btn">Imprimer</button>
+        </div>
     </div>
 
     <div id="worksheet" class="a4-page">
         <div class="header">
             <div class="name-date">
-                <span>Prénom: _______________</span>
-                <span>Date: _______________</span>
+                <span><span data-i18n="name-label">Prénom</span>: _______________</span>
+                <span><span data-i18n="date-label">Date</span>: _______________</span>
             </div>
-            <h1>60 calculs en 5 minutes</h1>
+            <h1><span data-i18n="title">60 calculs en 5 minutes</span></h1>
         </div>
 
         <div class="exercises">
@@ -34,7 +41,7 @@
         </div>
 
         <div class="footer">
-            <span>Mon score: _____ / 60</span>
+            <span><span data-i18n="score-label">Mon score</span>: _____ / 60</span>
         </div>
     </div>
 

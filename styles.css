@@ -8,18 +8,58 @@
 body {
     font-family: 'Arial', 'Helvetica', sans-serif;
     background-color: #f0f0f0;
-    padding: 20px;
+    padding: 10px;
+    overflow-x: hidden;
 }
 
 /* Controls for screen view */
 .controls {
     text-align: center;
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
 }
 
-.controls button {
+.language-selector {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.lang-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #e0e0e0;
+    color: #333;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.lang-btn:hover {
+    background-color: #d0d0d0;
+}
+
+.lang-btn.active {
+    background-color: #4CAF50;
+    color: white;
+    border-color: #45a049;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.action-buttons button {
     padding: 12px 24px;
-    margin: 0 10px;
     font-size: 16px;
     background-color: #4CAF50;
     color: white;
@@ -29,7 +69,7 @@ body {
     transition: background-color 0.3s;
 }
 
-.controls button:hover {
+.action-buttons button:hover {
     background-color: #45a049;
 }
 
@@ -48,13 +88,15 @@ body {
 }
 
 .a4-page {
-    width: 210mm;
-    height: 297mm;
+    width: 100%;
+    max-width: 210mm;
+    min-height: 297mm;
     padding: 15mm;
     margin: 0 auto 20px;
     background: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     position: relative;
+    box-sizing: border-box;
 }
 
 /* Header section */
@@ -161,26 +203,86 @@ h1 {
 
 /* Responsive adjustments for smaller screens */
 @media screen and (max-width: 900px) {
+    body {
+        padding: 5px;
+    }
+
     .a4-page {
         width: 100%;
         height: auto;
-        min-height: 297mm;
+        min-height: auto;
         padding: 10mm;
     }
 
     .exercises {
         gap: 15px;
+        max-width: 100%;
+    }
+
+    h1 {
+        font-size: 20px;
+        padding: 8px 20px;
+    }
+
+    .name-date {
+        font-size: 14px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .exercises {
+        gap: 20px;
+    }
+
+    .column {
+        gap: 6px;
+    }
+
+    .exercise-item {
+        font-size: 16px;
+    }
+
+    .exercise-item span:first-child {
+        min-width: 75px;
     }
 }
 
 @media screen and (max-width: 600px) {
     .exercises {
         grid-template-columns: 1fr;
+        gap: 15px;
+        max-width: 100%;
     }
 
-    .controls button {
-        display: block;
+    .action-buttons {
+        flex-direction: column;
         width: 100%;
-        margin: 10px 0;
+    }
+
+    .action-buttons button {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .a4-page {
+        padding: 5mm;
+    }
+
+    h1 {
+        font-size: 18px;
+        padding: 8px 15px;
+    }
+
+    .footer {
+        font-size: 14px;
+        position: relative;
+        bottom: auto;
+        right: auto;
+        text-align: center;
+        margin-top: 20px;
+        padding-top: 15px;
+        border-top: 2px solid #000;
     }
 }
