@@ -154,14 +154,6 @@ h1 {
         height: 297mm;
     }
 
-    .exercises {
-        gap: 15px;
-    }
-
-    .column {
-        gap: 10px;
-    }
-
     .exercise-item {
         page-break-inside: avoid;
     }
