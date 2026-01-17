@@ -54,28 +54,20 @@ let currentLang = localStorage.getItem('preferredLanguage') || 'fr';
 function updateLanguage(lang) {
     currentLang = lang;
     localStorage.setItem('preferredLanguage', lang);
+    document.documentElement.lang = lang;
 
-    // Update all elements with data-i18n attribute
+    // Update all translatable elements
     document.querySelectorAll('[data-i18n]').forEach(element => {
-        const key = element.getAttribute('data-i18n');
-        if (translations[lang] && translations[lang][key]) {
-            if (element.tagName === 'TITLE') {
-                element.textContent = translations[lang][key];
-            } else {
-                element.textContent = translations[lang][key];
-            }
+        const key = element.dataset.i18n;
+        const translation = translations[lang]?.[key];
+        if (translation) {
+            element.textContent = translation;
         }
     });
 
-    // Update HTML lang attribute
-    document.documentElement.lang = lang;
-
     // Update active language button
     document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.getAttribute('data-lang') === lang) {
-            btn.classList.add('active');
-        }
+        btn.classList.toggle('active', btn.dataset.lang === lang);
     });
 }
 
@@ -153,64 +145,34 @@ function generateExerciseSet() {
 // Render exercises to DOM
 function renderWorksheet() {
     const exercises = generateExerciseSet();
+    const columns = ['column-1', 'column-2', 'column-3'].map(id => document.getElementById(id));
 
-    // Get column elements
-    const columns = [
-        document.getElementById('column-1'),
-        document.getElementById('column-2'),
-        document.getElementById('column-3')
-    ];
-
-    // Clear existing columns
+    // Clear existing exercises
     columns.forEach(col => col.innerHTML = '');
 
-    // Distribute exercises to columns (20 per column)
+    // Distribute exercises across columns (20 per column)
     exercises.forEach((ex, index) => {
         const columnIndex = Math.floor(index / 20);
-
-        const div = document.createElement('div');
-        div.className = 'exercise-item';
-
-        const textSpan = document.createElement('span');
-        textSpan.textContent = ex.text;
-
-        const lineSpan = document.createElement('span');
-        lineSpan.className = 'answer-line';
-
-        div.appendChild(textSpan);
-        div.appendChild(lineSpan);
-
-        columns[columnIndex].appendChild(div);
+        const exerciseItem = document.createElement('div');
+        exerciseItem.className = 'exercise-item';
+        exerciseItem.innerHTML = `<span>${ex.text}</span><span class="answer-line"></span>`;
+        columns[columnIndex].appendChild(exerciseItem);
     });
 }
 
-// Event listeners
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize language
+// Initialize app on DOM load
+document.addEventListener('DOMContentLoaded', () => {
     updateLanguage(currentLang);
-
-    // Generate initial worksheet on load
     renderWorksheet();
 
-    // Language buttons
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const lang = this.getAttribute('data-lang');
-            updateLanguage(lang);
-        });
+    // Event delegation for language buttons
+    document.querySelector('.language-selector')?.addEventListener('click', (e) => {
+        if (e.target.classList.contains('lang-btn')) {
+            updateLanguage(e.target.dataset.lang);
+        }
     });
 
-    // Generate button
-    const generateBtn = document.getElementById('generate-btn');
-    if (generateBtn) {
-        generateBtn.addEventListener('click', renderWorksheet);
-    }
-
-    // Print button
-    const printBtn = document.getElementById('print-btn');
-    if (printBtn) {
-        printBtn.addEventListener('click', function() {
-            window.print();
-        });
-    }
+    // Action buttons
+    document.getElementById('generate-btn')?.addEventListener('click', renderWorksheet);
+    document.getElementById('print-btn')?.addEventListener('click', () => window.print());
 });

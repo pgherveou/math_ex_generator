@@ -1,0 +1,22 @@
+{
+  "name": "math-exercise-generator",
+  "version": "1.0.0",
+  "description": "Math worksheet generator for elementary school students",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:report": "playwright show-report"
+  },
+  "keywords": [
+    "math",
+    "worksheet",
+    "education"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.49.0"
+  }
+}
