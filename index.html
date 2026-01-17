@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de Feuilles d'Exercices</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="controls no-print">
+        <button id="generate-btn">Générer une nouvelle feuille</button>
+        <button id="print-btn">Imprimer</button>
+    </div>
+
+    <div id="worksheet" class="a4-page">
+        <div class="header">
+            <div class="name-date">
+                <span>Nom: _______________</span>
+                <span>Date: _______________</span>
+            </div>
+            <h1>60 calculs en 5 minutes</h1>
+        </div>
+
+        <div class="exercises">
+            <div class="column" id="column-1">
+                <!-- Exercises 1-20 will be inserted here -->
+            </div>
+            <div class="column" id="column-2">
+                <!-- Exercises 21-40 will be inserted here -->
+            </div>
+            <div class="column" id="column-3">
+                <!-- Exercises 41-60 will be inserted here -->
+            </div>
+        </div>
+
+        <div class="footer">
+            <span>Mon score: _____ / 60</span>
+        </div>
+    </div>
+
+    <script src="generator.js"></script>
+</body>
+</html>
