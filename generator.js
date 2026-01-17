@@ -35,6 +35,15 @@ const translations = {
         'date-label': 'Fecha',
         'title': '60 cálculos en 5 minutos',
         'score-label': 'Mi puntuación'
+    },
+    pt: {
+        'page-title': 'Gerador de Folhas de Exercícios',
+        'generate-btn': 'Gerar Nova Folha',
+        'print-btn': 'Imprimir',
+        'name-label': 'Nome',
+        'date-label': 'Data',
+        'title': '60 cálculos em 5 minutos',
+        'score-label': 'Minha pontuação'
     }
 };
 
