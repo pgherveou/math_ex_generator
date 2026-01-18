@@ -236,9 +236,9 @@ h1 {
         margin: 0;
         padding: 15mm;
         box-shadow: none;
-        page-break-after: always;
         width: 210mm;
         height: 297mm;
+        overflow: hidden;
     }
 
     .exercise-item {
