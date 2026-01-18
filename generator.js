@@ -12,6 +12,7 @@ const translations = {
     fr: {
         'page-title': 'Générateur de Feuilles d\'Exercices',
         'generate-btn': 'Générer une nouvelle feuille',
+        'print-btn': 'Imprimer',
         'name-label': 'Prénom',
         'date-label': 'Date',
         'title': '60 calculs en 5 minutes',
@@ -20,6 +21,7 @@ const translations = {
     en: {
         'page-title': 'Math Worksheet Generator',
         'generate-btn': 'Generate New Worksheet',
+        'print-btn': 'Print',
         'name-label': 'Name',
         'date-label': 'Date',
         'title': '60 calculations in 5 minutes',
@@ -28,6 +30,7 @@ const translations = {
     es: {
         'page-title': 'Generador de Hojas de Ejercicios',
         'generate-btn': 'Generar Nueva Hoja',
+        'print-btn': 'Imprimir',
         'name-label': 'Nombre',
         'date-label': 'Fecha',
         'title': '60 cálculos en 5 minutos',
@@ -36,6 +39,7 @@ const translations = {
     pt: {
         'page-title': 'Gerador de Folhas de Exercícios',
         'generate-btn': 'Gerar Nova Folha',
+        'print-btn': 'Imprimir',
         'name-label': 'Nome',
         'date-label': 'Data',
         'title': '60 cálculos em 5 minutos',
@@ -44,6 +48,7 @@ const translations = {
     de: {
         'page-title': 'Mathe-Arbeitsblatt Generator',
         'generate-btn': 'Neues Arbeitsblatt erstellen',
+        'print-btn': 'Drucken',
         'name-label': 'Name',
         'date-label': 'Datum',
         'title': '60 Rechnungen in 5 Minuten',
@@ -176,6 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Action button
+    // Action buttons
     document.getElementById('generate-btn')?.addEventListener('click', renderWorksheet);
+    document.getElementById('print-btn')?.addEventListener('click', () => window.print());
 });
