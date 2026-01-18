@@ -117,15 +117,6 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-#print-btn {
-    background-color: var(--color-secondary);
-}
-
-#print-btn:hover,
-#print-btn:focus-visible {
-    background-color: var(--color-secondary-dark);
-    outline-color: var(--color-secondary);
-}
 
 /* A4 Page Layout */
 @page {
@@ -282,6 +273,7 @@ h1 {
     .action-buttons {
         flex-direction: column;
         max-width: 100%;
+        align-items: center;
     }
 
     .action-buttons button {
