@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page-title">Feuille de Dictée</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .dictation-lines {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .dictation-line {
+            border-bottom: 1px solid #000;
+            height: 25px;
+            width: 100%;
+        }
+
+        .dictation-title {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls no-print">
+        <div class="language-selector">
+            <button id="lang-fr" class="lang-btn active" data-lang="fr">FR</button>
+            <button id="lang-en" class="lang-btn" data-lang="en">EN</button>
+            <button id="lang-es" class="lang-btn" data-lang="es">ES</button>
+            <button id="lang-pt" class="lang-btn" data-lang="pt">PT</button>
+        </div>
+        <div class="action-buttons">
+            <button id="print-btn" data-i18n="print-btn">Imprimer</button>
+        </div>
+    </div>
+
+    <div id="worksheet" class="a4-page">
+        <div class="header">
+            <div class="name-date">
+                <span><span data-i18n="name-label">Prénom</span>: _______________</span>
+                <span><span data-i18n="date-label">Date</span>: _______________</span>
+            </div>
+            <h1 class="dictation-title"><span data-i18n="dictation-title">Dictée</span></h1>
+        </div>
+
+        <div class="dictation-lines">
+            <div class="dictation-line"></div>
+            <div class="dictation-line"></div>
+            <div class="dictation-line"></div>
+            <div class="dictation-line"></div>
+            <div class="dictation-line"></div>
+            <div class="dictation-line"></div>
+            <div class="dictation-line"></div>
+            <div class="dictation-line"></div>
+            <div class="dictation-line"></div>
+            <div class="dictation-line"></div>
+            <div class="dictation-line"></div>
+            <div class="dictation-line"></div>
+            <div class="dictation-line"></div>
+            <div class="dictation-line"></div>
+            <div class="dictation-line"></div>
+            <div class="dictation-line"></div>
+            <div class="dictation-line"></div>
+            <div class="dictation-line"></div>
+            <div class="dictation-line"></div>
+            <div class="dictation-line"></div>
+        </div>
+
+        <div class="footer">
+            <span><span data-i18n="score-label">Mon score</span>: _____ / 20</span>
+        </div>
+    </div>
+
+    <script>
+        // Translations
+        const translations = {
+            fr: {
+                'page-title': 'Feuille de Dictée',
+                'print-btn': 'Imprimer',
+                'name-label': 'Prénom',
+                'date-label': 'Date',
+                'dictation-title': 'Dictée',
+                'score-label': 'Mon score'
+            },
+            en: {
+                'page-title': 'Dictation Sheet',
+                'print-btn': 'Print',
+                'name-label': 'Name',
+                'date-label': 'Date',
+                'dictation-title': 'Dictation',
+                'score-label': 'My score'
+            },
+            es: {
+                'page-title': 'Hoja de Dictado',
+                'print-btn': 'Imprimir',
+                'name-label': 'Nombre',
+                'date-label': 'Fecha',
+                'dictation-title': 'Dictado',
+                'score-label': 'Mi puntuación'
+            },
+            pt: {
+                'page-title': 'Folha de Ditado',
+                'print-btn': 'Imprimir',
+                'name-label': 'Nome',
+                'date-label': 'Data',
+                'dictation-title': 'Ditado',
+                'score-label': 'Minha pontuação'
+            }
+        };
+
+        // Current language
+        let currentLang = localStorage.getItem('preferredLanguage') || 'fr';
+
+        // Update page text based on language
+        function updateLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('preferredLanguage', lang);
+            document.documentElement.lang = lang;
+
+            // Update all translatable elements
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.dataset.i18n;
+                const translation = translations[lang]?.[key];
+                if (translation) {
+                    element.textContent = translation;
+                }
+            });
+
+            // Update active language button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+        }
+
+        // Initialize app on DOM load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateLanguage(currentLang);
+
+            // Event delegation for language buttons
+            document.querySelector('.language-selector')?.addEventListener('click', (e) => {
+                if (e.target.classList.contains('lang-btn')) {
+                    updateLanguage(e.target.dataset.lang);
+                }
+            });
+
+            // Print button
+            document.getElementById('print-btn')?.addEventListener('click', () => window.print());
+        });
+    </script>
+</body>
+</html>
