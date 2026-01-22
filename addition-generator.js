@@ -1,10 +1,10 @@
 // Configuration
 const CONFIG = {
-    TOTAL_EXERCISES: 60,
-    MULT_COUNT: 42,  // 70%
-    DIV_COUNT: 18,   // 30%
-    TABLE_MIN: 1,
-    TABLE_MAX: 11
+    TOTAL_EXERCISES: 40,
+    ADD_COUNT: 20,
+    SUB_COUNT: 20,
+    NUM_MIN: 1,
+    NUM_MAX: 99
 };
 
 // Translations
@@ -15,7 +15,7 @@ const translations = {
         'print-btn': 'Imprimer',
         'name-label': 'Prénom',
         'date-label': 'Date',
-        'title': '60 calculs en 5 minutes',
+        'title': '40 calculs en 5 minutes',
         'score-label': 'Mon score',
         'nav-math': 'Maths',
         'nav-dictation': 'Dictée',
@@ -27,7 +27,7 @@ const translations = {
         'print-btn': 'Print',
         'name-label': 'Name',
         'date-label': 'Date',
-        'title': '60 calculations in 5 minutes',
+        'title': '40 calculations in 5 minutes',
         'score-label': 'My score',
         'nav-math': 'Math',
         'nav-dictation': 'Dictation',
@@ -39,7 +39,7 @@ const translations = {
         'print-btn': 'Imprimir',
         'name-label': 'Nombre',
         'date-label': 'Fecha',
-        'title': '60 cálculos en 5 minutos',
+        'title': '40 cálculos en 5 minutos',
         'score-label': 'Mi puntuación',
         'nav-math': 'Matemáticas',
         'nav-dictation': 'Dictado',
@@ -51,7 +51,7 @@ const translations = {
         'print-btn': 'Imprimir',
         'name-label': 'Nome',
         'date-label': 'Data',
-        'title': '60 cálculos em 5 minutos',
+        'title': '40 cálculos em 5 minutos',
         'score-label': 'Minha pontuação',
         'nav-math': 'Matemática',
         'nav-dictation': 'Ditado',
@@ -63,7 +63,7 @@ const translations = {
         'print-btn': 'Drucken',
         'name-label': 'Name',
         'date-label': 'Datum',
-        'title': '60 Rechnungen in 5 Minuten',
+        'title': '40 Rechnungen in 5 Minuten',
         'score-label': 'Meine Punktzahl',
         'nav-math': 'Mathe',
         'nav-dictation': 'Diktat',
@@ -109,35 +109,40 @@ function shuffle(array) {
     return array;
 }
 
-// Generate single multiplication exercise
-function generateMultiplication() {
-    const a = randomInt(CONFIG.TABLE_MIN, CONFIG.TABLE_MAX);
-    const b = randomInt(CONFIG.TABLE_MIN, CONFIG.TABLE_MAX);
+// Generate single addition exercise
+function generateAddition() {
+    const a = randomInt(CONFIG.NUM_MIN, CONFIG.NUM_MAX);
+    const b = randomInt(CONFIG.NUM_MIN, CONFIG.NUM_MAX);
     return {
-        type: 'mult',
-        text: `${a} × ${b} = `,
-        key: `${a}×${b}`
+        type: 'add',
+        text: `${a} + ${b} = `,
+        key: `${a}+${b}`
     };
 }
 
-// Generate single division exercise (whole numbers only)
-function generateDivision() {
-    const divisor = randomInt(CONFIG.TABLE_MIN, CONFIG.TABLE_MAX);
-    const quotient = randomInt(CONFIG.TABLE_MIN, CONFIG.TABLE_MAX);
-    const dividend = divisor * quotient;
+// Generate single subtraction exercise (ensure a >= b for no negative results)
+function generateSubtraction() {
+    let a = randomInt(CONFIG.NUM_MIN, CONFIG.NUM_MAX);
+    let b = randomInt(CONFIG.NUM_MIN, CONFIG.NUM_MAX);
+
+    // Ensure a >= b to prevent negative results
+    if (a < b) {
+        [a, b] = [b, a];
+    }
+
     return {
-        type: 'div',
-        text: `${dividend} : ${divisor} = `,
-        key: `${dividend}:${divisor}`
+        type: 'sub',
+        text: `${a} - ${b} = `,
+        key: `${a}-${b}`
     };
 }
 
-// Generate full exercise set (60 exercises with 70/30 distribution)
+// Generate full exercise set (40 exercises with 50/50 distribution)
 function generateExerciseSet() {
     // Create distribution array
     const types = [
-        ...Array(CONFIG.MULT_COUNT).fill('mult'),
-        ...Array(CONFIG.DIV_COUNT).fill('div')
+        ...Array(CONFIG.ADD_COUNT).fill('add'),
+        ...Array(CONFIG.SUB_COUNT).fill('sub')
     ];
 
     // Shuffle to randomize distribution
@@ -153,9 +158,9 @@ function generateExerciseSet() {
 
         // Try to generate unique exercise (avoid excessive duplicates)
         do {
-            exercise = types[i] === 'mult'
-                ? generateMultiplication()
-                : generateDivision();
+            exercise = types[i] === 'add'
+                ? generateAddition()
+                : generateSubtraction();
             attempts++;
         } while (used.has(exercise.key) && attempts < 10);
 
@@ -169,7 +174,7 @@ function generateExerciseSet() {
 // Render exercises to DOM
 function renderWorksheet() {
     const exercises = generateExerciseSet();
-    const columns = ['column-1', 'column-2', 'column-3'].map(id => document.getElementById(id));
+    const columns = ['column-1', 'column-2'].map(id => document.getElementById(id));
 
     // Clear existing exercises
     columns.forEach(col => col.innerHTML = '');
