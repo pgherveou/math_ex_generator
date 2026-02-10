@@ -9,9 +9,9 @@
 <body>
     <nav class="nav-menu no-print">
         <ul>
-            <li><a href="index.html" class="active" data-i18n="nav-math">Maths</a></li>
+            <li><a href="index.html" data-i18n="nav-math">Maths</a></li>
             <li><a href="dictation.html" data-i18n="nav-dictation">Dictée</a></li>
-            <li><a href="addition.html" data-i18n="nav-addition">Addition</a></li>
+            <li><a href="addition.html" class="active" data-i18n="nav-addition">Addition</a></li>
         </ul>
     </nav>
 
@@ -35,26 +35,23 @@
                 <span><span data-i18n="name-label">Prénom</span>: _______________</span>
                 <span><span data-i18n="date-label">Date</span>: _______________</span>
             </div>
-            <h1><span data-i18n="title">60 calculs en 5 minutes</span></h1>
+            <h1><span data-i18n="title">40 calculs en 5 minutes</span></h1>
         </div>
 
-        <div class="exercises">
+        <div class="exercises" style="grid-template-columns: repeat(2, 1fr);">
             <div class="column" id="column-1">
                 <!-- Exercises 1-20 will be inserted here -->
             </div>
             <div class="column" id="column-2">
                 <!-- Exercises 21-40 will be inserted here -->
             </div>
-            <div class="column" id="column-3">
-                <!-- Exercises 41-60 will be inserted here -->
-            </div>
         </div>
 
         <div class="footer">
-            <span><span data-i18n="score-label">Mon score</span>: _____ / 60</span>
+            <span><span data-i18n="score-label">Mon score</span>: _____ / 40</span>
         </div>
     </div>
 
-    <script src="generator.js"></script>
+    <script src="addition-generator.js"></script>
 </body>
 </html>
