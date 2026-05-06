@@ -4,7 +4,7 @@ const CONFIG = {
     MULT_COUNT: 42,  // 70%
     DIV_COUNT: 18,   // 30%
     TABLE_MIN: 1,
-    TABLE_MAX: 11
+    TABLE_MAX: 12
 };
 
 // Translations
